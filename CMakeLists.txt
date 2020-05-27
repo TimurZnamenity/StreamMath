@@ -41,6 +41,8 @@ else()
     HandleWidget.hpp
     Data.cpp
     Data.hpp
+    ProgressBar.cpp
+    ProgressBar.hpp
   )
 endif()
 

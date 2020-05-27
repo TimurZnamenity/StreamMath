@@ -6,7 +6,7 @@
 #include <cmath>
 
 
-Data::Data()
+Data::Data(QObject *parent) : QObject(parent)
 {
 
 }
@@ -23,13 +23,17 @@ void Data::prepare()
 
     QTextStream out( &inputDataFile );
 
-    for( double x = 0; x < 100; x += 0.1)
+    long step = 0;
+    for( double x = MIN; x < MAX; x += STEP)
     {
         double first  = std::sin(x);
         double second = 0; //std::srand( sizeof(x) );
         double y = first + second;
 
         out << QString("%1").arg(y) << "\n";
+
+        // считаем проценты выполнения
+        emit prepareProgress( calcPercentage(step++) );
     }
 
     inputDataFile.close();
@@ -54,6 +58,7 @@ void Data::process()
 
     QTextStream out( &outputDataFile );
     QTextStream in( &inputDataFile );
+    long step = 0;
     while ( !in.atEnd() )
     {
         QString line = in.readLine();
@@ -61,6 +66,9 @@ void Data::process()
         double y = calculate( line.toDouble() );
 
         out << QString("%1").arg(y) << "\n";
+
+        // считаем проценты выполнения
+        emit processProgress( calcPercentage(step++) );
     }
 
     inputDataFile.close();
@@ -71,4 +79,11 @@ void Data::process()
 double Data::calculate(const double arg)
 {
     return arg + 0.1234;
+}
+
+
+int Data::calcPercentage(long step)
+{
+    long percent = (step * 100) / STEP_AMOUNT;
+    return static_cast<int>(percent);
 }

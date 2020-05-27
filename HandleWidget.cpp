@@ -1,4 +1,5 @@
 #include <QLayout>
+#include "ProgressBar.hpp"
 #include "HandleWidget.hpp"
 #include "Data.hpp"
 
@@ -34,7 +35,11 @@ void HandleWidget::onPrepareButtonClicked()
     m_handleButton->setEnabled ( true  );
     m_againButton->setEnabled  ( false );
 
-    Data::prepare();
+    std::unique_ptr<ProgressBar> bar{new ProgressBar(this)};
+    std::unique_ptr<Data> data{new Data(this)};
+    connect( data.get(), &Data::prepareProgress,
+             bar.get(),  &ProgressBar::setValue);
+    data.get()->prepare();
 }
 
 void HandleWidget::onHandleButtonClicked()
@@ -43,7 +48,11 @@ void HandleWidget::onHandleButtonClicked()
     m_handleButton->setEnabled ( false );
     m_againButton->setEnabled  ( true  );
 
-    Data::process();
+    std::unique_ptr<ProgressBar> bar{new ProgressBar(this)};
+    std::unique_ptr<Data> data{new Data(this)};
+    connect( data.get(), &Data::processProgress,
+             bar.get(),  &ProgressBar::setValue);
+    data.get()->process();
 }
 
 void HandleWidget::onAgainButtonClicked()
