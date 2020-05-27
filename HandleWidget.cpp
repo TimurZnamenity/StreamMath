@@ -1,5 +1,6 @@
 #include <QLayout>
 #include "HandleWidget.hpp"
+#include "Data.hpp"
 
 HandleWidget::HandleWidget(QWidget *parent) : QWidget(parent)
 {
@@ -29,16 +30,20 @@ HandleWidget::HandleWidget(QWidget *parent) : QWidget(parent)
 
 void HandleWidget::onPrepareButtonClicked()
 {
-    m_prepareButton->setEnabled( false  );
-    m_handleButton->setEnabled ( true );
+    m_prepareButton->setEnabled( false );
+    m_handleButton->setEnabled ( true  );
     m_againButton->setEnabled  ( false );
+
+    Data::prepare();
 }
 
 void HandleWidget::onHandleButtonClicked()
 {
-    m_prepareButton->setEnabled( false  );
+    m_prepareButton->setEnabled( false );
     m_handleButton->setEnabled ( false );
-    m_againButton->setEnabled  ( true );
+    m_againButton->setEnabled  ( true  );
+
+    Data::process();
 }
 
 void HandleWidget::onAgainButtonClicked()

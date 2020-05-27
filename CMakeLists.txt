@@ -39,6 +39,8 @@ else()
     mainwindow.hpp
     HandleWidget.cpp
     HandleWidget.hpp
+    Data.cpp
+    Data.hpp
   )
 endif()
 
