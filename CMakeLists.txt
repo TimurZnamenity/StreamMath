@@ -37,6 +37,8 @@ else()
     main.cpp
     mainwindow.cpp
     mainwindow.hpp
+    HandleWidget.cpp
+    HandleWidget.hpp
   )
 endif()
 
