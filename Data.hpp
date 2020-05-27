@@ -17,13 +17,19 @@ public:
     double calculate(const double arg);
 
 private:
+    // эти значения считаем из Settings
+    double m_min;
+    double m_max;
+    double m_step;
+
+    // значения по умолчанию
     const double MIN         = 0.0;
-    const double MAX         = 100000.0;
+    const double MAX         = 100000000.0;
     const double STEP        = 0.1;
-    const double STEP_AMOUNT = (MAX - MIN) / STEP;
+    const long   STEP_AMOUNT = (MAX - MIN) / STEP;
 
-
-    int calcPercentage(long step);
+    long    calcStepAmount();
+    int     calcPercentage(long step);
 
 signals:
     void prepareProgress(int percent);

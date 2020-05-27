@@ -43,6 +43,8 @@ else()
     Data.hpp
     ProgressBar.cpp
     ProgressBar.hpp
+    Settings.cpp
+    Settings.hpp
   )
 endif()
 

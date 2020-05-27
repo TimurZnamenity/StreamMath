@@ -1,4 +1,5 @@
 #include "Data.hpp"
+#include "Settings.hpp"
 #include <QFile>
 #include <QDebug>
 #include <QTextStream>
@@ -8,7 +9,14 @@
 
 Data::Data(QObject *parent) : QObject(parent)
 {
+    auto min  = Settings::value("min");
+    m_min = min.isEmpty()? MIN: min.toDouble();
 
+    auto max  = Settings::value("max");
+    m_max = max.isEmpty()? MAX: max.toDouble();
+
+    auto step = Settings::value("step");
+    m_step = step.isEmpty()? STEP: step.toDouble();
 }
 
 
@@ -81,9 +89,14 @@ double Data::calculate(const double arg)
     return arg + 0.1234;
 }
 
+long Data::calcStepAmount()
+{
+    return (m_max - m_min) / m_step;
+}
+
 
 int Data::calcPercentage(long step)
 {
-    long percent = (step * 100) / STEP_AMOUNT;
+    long percent = (step * 100) / calcStepAmount();
     return static_cast<int>(percent);
 }
