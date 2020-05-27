@@ -89,6 +89,7 @@ double Data::calculate(const double arg)
     return arg + 0.1234;
 }
 
+
 long Data::calcStepAmount()
 {
     return (m_max - m_min) / m_step;

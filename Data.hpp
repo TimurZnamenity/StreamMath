@@ -28,8 +28,8 @@ private:
     const double STEP        = 0.1;
     const long   STEP_AMOUNT = (MAX - MIN) / STEP;
 
-    long    calcStepAmount();
-    int     calcPercentage(long step);
+    long calcStepAmount();
+    int  calcPercentage(long step);
 
 signals:
     void prepareProgress(int percent);

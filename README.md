@@ -1,2 +1,2 @@
 # StreamMath
-Stream data handling
+Stream data processing

@@ -11,41 +11,25 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# QtCreator supports the following variables for Android, which are identical to qmake Android variables.
-# Check http://doc.qt.io/qt-5/deployment-android.html for more information.
-# They need to be set before the find_package(Qt5 ...) call.
-
-#if(ANDROID)
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-#    if (ANDROID_ABI STREQUAL "armeabi-v7a")
-#        set(ANDROID_EXTRA_LIBS
-#            ${CMAKE_CURRENT_SOURCE_DIR}/path/to/libcrypto.so
-#            ${CMAKE_CURRENT_SOURCE_DIR}/path/to/libssl.so)
-#    endif()
-#endif()
-
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
-if(ANDROID)
-  add_library(StreamMath SHARED
+
+add_executable(StreamMath
     main.cpp
-    mainwindow.cpp
-    mainwindow.hpp
-  )
-else()
-  add_executable(StreamMath
-    main.cpp
-    mainwindow.cpp
-    mainwindow.hpp
-    HandleWidget.cpp
-    HandleWidget.hpp
+    Widgets/MainWindow.cpp
+    Widgets/MainWindow.hpp
+    Widgets/HandleWidget.cpp
+    Widgets/HandleWidget.hpp
+    Widgets/ProgressBar.cpp
+    Widgets/ProgressBar.hpp
     Data.cpp
     Data.hpp
-    ProgressBar.cpp
-    ProgressBar.hpp
     Settings.cpp
     Settings.hpp
-  )
-endif()
+)
+
+target_include_directories(StreamMath PRIVATE
+    Widgets
+    )
 
 target_link_libraries(StreamMath PRIVATE Qt5::Widgets)
